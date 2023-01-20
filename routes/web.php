@@ -18,7 +18,7 @@ use App\Http\Controllers\PageController;
 Route::get('/',[PageController::class,'home'])->name('home');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
