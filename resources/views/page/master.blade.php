@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{{asset('assets/cdndan/all/min/css')}}" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
     <link href="{{asset('assets/lib/animate/animate.min.css')}}" rel="stylesheet">
@@ -44,16 +44,16 @@
                 <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <button class="dropdown-item" type="button">Sign in</button>
-                        <button class="dropdown-item" type="button">Sign up</button>
+                        <a href="{{route('login')}}" class="dropdown-item" type="button">Sign in</a>
+                        <a href="{{route('register')}}" class="dropdown-item" type="button">Sign up</a>
                     </div>
                 </div>
                 <div class="btn-group mx-2">
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
+                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">UZS</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <button class="dropdown-item" type="button">EUR</button>
-                        <button class="dropdown-item" type="button">GBP</button>
-                        <button class="dropdown-item" type="button">CAD</button>
+                        <button class="dropdown-item" type="button">USD</button>
+                        <button class="dropdown-item" type="button">RUB</button>
                     </div>
                 </div>
                 <div class="btn-group">
@@ -254,8 +254,8 @@
 
 
 <!-- JavaScript Libraries -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{{asset('assets/cdndan/jquery34.min.js')}}"></script>
+<script src="{{asset('assets/cdndan/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('assets/lib/easing/easing.min.js')}}"></script>
 <script src="{{asset('assets/lib/owlcarousel/owl.carousel.min.js')}}"></script>
 
