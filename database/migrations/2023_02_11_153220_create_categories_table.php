@@ -16,13 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
-            $table->text('description');
-            $table->tinyInteger('status')->default(1);
-            $table->tinyInteger('popular')->default(0);
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
