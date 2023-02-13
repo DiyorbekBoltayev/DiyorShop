@@ -14,4 +14,19 @@ class CategoryService
         $category->save();
         return $category;
     }
+
+    public static function update($id, $name, $parent_id= null)
+    {
+        $category = Category::find($id);
+        $category->name = $name;
+        $category->parent_id = $parent_id;
+        $category->save();
+        return $category;
+    }
+    public static function delete($id)
+    {
+        $category = Category::find($id);
+        $category->delete();
+        return $category;
+    }
 }

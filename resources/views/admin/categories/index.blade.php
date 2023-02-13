@@ -35,7 +35,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped table-hover">
+                            <table id="categoryTable" data-order='[[ 1, "asc" ]]' class="table table-bordered table-striped table-hover hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -45,21 +45,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($categories as $category)
-                                        <tr>
-                                            <th scope="row">{{$category->id}}</th>
-                                            <td>{{$category->name}}</td>
-                                            <td>{{$category->slug}}</td>
-                                            <td>
-                                                <a href="{{route('admin.categories.edit', $category->id)}}" class="btn btn-primary">O'zgartirish</a>
-                                                <form action="{{route('admin.categories.destroy', $category->id)}}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">O'chirish</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+
+
                                 </tbody>
                             </table>
                         </div>

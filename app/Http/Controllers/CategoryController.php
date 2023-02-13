@@ -19,9 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::all();
 
-        return view('admin.categories.index',compact('categories'));
+        return view('admin.categories.index');
 
     }
 
@@ -74,11 +73,14 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit($id)
     {
-        //
+        $category=Category::find($id);
+        $categories=Category::all();
+
+        return view('admin.categories.edit',compact('category','categories'));
     }
 
     /**
@@ -86,21 +88,34 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+        try {
+            CategoryService::update($id, $request->name, $request->parent_id);
+            return redirect()->route('admin.categories.index')->with('success','Kategoriya tahrirlandi.');
+        }catch (\Exception $exception){
+            return redirect()->route('admin.categories.index')->with('error',$exception->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
-        //
+        try {
+            CategoryService::delete($id);
+            return redirect()->route('admin.categories.index')->with('success','Kategoriya o`chirildi.');
+        }catch (\Exception $exception){
+            return redirect()->route('admin.categories.index')->with('error',$exception->getMessage());
+        }
     }
 }

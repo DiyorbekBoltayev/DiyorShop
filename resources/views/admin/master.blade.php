@@ -64,7 +64,19 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('adminassets/js/config.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.2/datatables.min.css"/>
 
+    <style>
+        table tr:hover {
+            background-color: #696cff29;
+        }
+
+        .table td, .table th {
+            padding: .75rem;
+            vertical-align: top;
+            border-top: 2px solid #dee2e6;
+        }
+    </style>
 </head>
 
 <body>
@@ -97,62 +109,91 @@
 {{--//toastr cdn--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.2/datatables.min.js"></script>
+
 
 <script>
+    $(document).ready( function () {
+        $('#categoryTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.category-table') }}",
+                type: 'GET',
+            },
+            columns: [
+
+                { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false, width: '5%' },
+                { data: 'name', name: 'name' },
+                { data: 'parent_id', name: 'parent_id' },
+                { data: 'action', name: 'action' },
+            ],
+        });
+    } );
+    $(document).on('click', '.show_confirm', function (event) {
+        var form = $(this).closest("form");
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-danger m-2',
+                cancelButton: 'btn btn-success m-2'
+            },
+            buttonsStyling: false
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Ishonchongiz komilmi?',
+            text: "Bunda ushbu ma\'lumotga tegishli barcha ma\'lumotlar o\'chib ketadi!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: ' Ha, o\'chirilsin! ',
+            cancelButtonText: ' Yo\'q, bekor qilinsin! ',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+
+        })
+    });
+
     function toasterOptions() {
         toastr.options = {
             "closeButton": true,
             "debug": false,
-            "newestOnTop": false,
+            "newestOnTop": true,
             "progressBar": true,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
             "onclick": null,
-            "showDuration": "1000",
+            "showDuration": "300",
             "hideDuration": "1000",
             "timeOut": "5000",
-            "extendedTimeOut": "1000",
+            "extendedTimeOut": "3000",
             "showEasing": "swing",
-            "hideEasing": "swing",
-            "showMethod": "show",
-            "hideMethod": "hide"
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
         };
     };
 
 
     toasterOptions();
-    toastr.error("Error Message from toastr");
-    toastr.success('xxclvcsf');
+
 
     @if (session('success'))
-        toastr.success('{{session('success')}}');
+        toastr.success('{{session('success')}}','Muaffaqiyatli');
     @endif
     @if (session('error'))
-        toastr.error('{{session('error')}}');
+        toastr.error('{{session('error')}}','Xatolik');
     @endif
     @if (session('warning'))
-        toastr.warning('{{session('warning')}}');
+        toastr.warning('{{session('warning')}}','Diqqat');
     @endif
     @if (session('info'))
-        toastr.info('{{session('info')}}');
+        toastr.info('{{session('info')}}','Ma`lumot');
     @endif
 
-{{--    @if (Session::has('success'))--}}
-{{--        Swal.fire({--}}
 
-{{--            icon: 'success',--}}
-{{--            title: '{{Session::get('success')}}',--}}
-{{--            showConfirmButton: true--}}
-{{--        })--}}
-{{--    @endif--}}
-{{--    @if (Session::has('error'))--}}
-{{--        Swal.fire({--}}
-
-{{--            icon: 'error',--}}
-{{--            title: '{{Session::get('error')}}',--}}
-{{--            showConfirmButton: true--}}
-{{--        })--}}
-{{--    @endif--}}
 </script>
 </body>
 </html>

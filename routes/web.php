@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\{
     CategoryController,
+    AjaxRequestController,
+
 
 };
 
@@ -21,6 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {        return view('admin.dashboard');    })->name('dashboard');
+    Route::get('/category-table', [AjaxRequestController::class, 'categoryTable'])->name('category-table');
 
     Route::resource('categories', CategoryController::class);
 });
