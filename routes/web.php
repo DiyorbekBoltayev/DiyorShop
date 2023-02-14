@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\{
     CategoryController,
     AjaxRequestController,
+    VariationController,
 
 
 };
@@ -26,6 +27,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/category-table', [AjaxRequestController::class, 'categoryTable'])->name('category-table');
 
     Route::resource('categories', CategoryController::class);
+    Route::resource('variations', VariationController::class);
 });
 
 
